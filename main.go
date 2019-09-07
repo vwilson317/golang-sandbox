@@ -16,15 +16,18 @@ func getHandler(c *gin.Context) {
 
 func postHandler(c *gin.Context) {
 	body, _ := ioutil.ReadAll(c.Request.Body)
-	fmt.Print(body)
-	c.String(http.StatusOK, "Hello world")
+	reqBody := string(body)
+
+	fmt.Print(reqBody)
+
+	c.String(http.StatusCreated, reqBody)
 }
 
 func main() {
 	router := gin.Default()
 
 	router.GET("/data", getHandler)
-	router.GET("/api", postHandler)
+	router.POST("/api", postHandler)
 
 	router.Run()
 }
